@@ -32,25 +32,25 @@ class App extends Component {
 
   toggleRead = () => {
 
-  const messages = this.state.messages.slice()
+    const messages = this.state.messages.slice()
 
-  const selectedMessages = messages.filter( message => message.selected === true)
-  console.log(selectedMessages)
+    const selectedMessages = messages.filter( message => message.selected === true)
+    console.log(selectedMessages)
 
-  const selectedIndex = selectedMessages.map((message) => messages.indexOf(message))
-  console.log(selectedIndex)
+    const selectedIndex = selectedMessages.map((message) => messages.indexOf(message))
+    console.log(selectedIndex)
 
-  selectedIndex.forEach(index => {
-    messages[index].read = true
-    console.log(messages[index])
-    messages[index].selected = !messages[index].selected
-    this.setState({ messages: messages })
-    console.log(messages);
-  })
+    selectedIndex.forEach(index => {
+      messages[index].read = true
+      console.log(messages[index])
+      messages[index].selected = !messages[index].selected
+      this.setState({ messages: messages })
+      console.log(messages);
+    })
 
   }
 
-  selectAll = () => {
+  toggleSelectAll = () => {
 
     const messages = this.state.messages.slice()
     const numSelected = messages.filter(message => message.selected === true).length;
@@ -92,7 +92,7 @@ class App extends Component {
           </div>
         </div>
         <div className="container">
-          <Toolbar toggleRead={this.toggleRead} selectAll={this.selectAll} messages={this.state.messages} />
+          <Toolbar toggleRead={this.toggleRead} toggleSelectAll={this.toggleSelectAll} messages={this.state.messages} />
           <Messages messages={this.state.messages} toggleStar={this.toggleStar} toggleSelect={this.toggleSelect} />
         </div>
       </div>

@@ -1,14 +1,10 @@
 import React from 'react';
 
-const Toolbar = ({ toggleRead, selectAll, messages }) => {
+const Toolbar = ({ toggleRead, toggleSelectAll, messages }) => {
 
-  // let selectAllClass;
-  //
-  // if (messages.selected.find(false)) {
-  //   selectAllClass = ''
-  // } else {
-  //   selectAllClass = "fa-check-square-o"
-  // }
+  const selected = messages.filter(message => message.selected === true).length;
+
+  const selectAllClass = (selected === messages.length) ? 'fa-check-square-o' : 'fa-square-o';
 
   return (
     <div className="row toolbar">
@@ -18,8 +14,8 @@ const Toolbar = ({ toggleRead, selectAll, messages }) => {
           unread messages
         </p>
 
-        <button onClick={ selectAll } className="btn btn-default">
-          <i className={`fa fa-square-o`}></i>
+        <button onClick={ toggleSelectAll } className="btn btn-default">
+          <i className={`fa ${selectAllClass}`}></i>
         </button>
 
         <button className="btn btn-default" disabled="" onClick={ toggleRead }>
