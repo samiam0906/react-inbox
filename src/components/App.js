@@ -78,6 +78,19 @@ class App extends Component {
 
   }
 
+  deleteMessage = () => {
+
+    const messages = this.state.messages.slice()
+
+    const selectedMessages = messages.filter(message => message.selected === true)
+
+    const remainingMessages = messages.filter(message => selectedMessages.indexOf(message) === -1)
+    console.log(remainingMessages);
+
+    this.setState({ messages: remainingMessages })
+
+  }
+
 
   render() {
     return (
@@ -96,7 +109,7 @@ class App extends Component {
           </div>
         </div>
         <div className="container">
-          <Toolbar toggleRead={this.toggleRead} toggleUnread={this.toggleUnread} toggleSelectAll={this.toggleSelectAll} messages={this.state.messages} />
+          <Toolbar toggleRead={this.toggleRead} toggleUnread={this.toggleUnread} toggleSelectAll={this.toggleSelectAll} deleteMessage={this.deleteMessage} messages={this.state.messages} />
           <Messages messages={this.state.messages} toggleStar={this.toggleStar} toggleSelect={this.toggleSelect} />
         </div>
       </div>

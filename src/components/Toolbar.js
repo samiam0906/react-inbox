@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Toolbar = ({ toggleRead, toggleUnread, toggleSelectAll, messages }) => {
+const Toolbar = ({ toggleRead, toggleUnread, toggleSelectAll, deleteMessage, messages }) => {
 
   const selected = messages.filter(message => message.selected === true).length;
 
@@ -40,7 +40,7 @@ const Toolbar = ({ toggleRead, toggleUnread, toggleSelectAll, messages }) => {
           <option value="gschool">gschool</option>
         </select>
 
-        <button className="btn btn-default" disabled="disabled">
+        <button className="btn btn-default" disabled="" onClick={ deleteMessage }>
           <i className="fa fa-trash-o"></i>
         </button>
       </div>
