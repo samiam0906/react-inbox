@@ -5,7 +5,7 @@ const Message = ({ message, toggleStar, toggleSelect, addLabel, removeLabel }) =
 
   const selectedClass = message.selected ? 'selected' : ''
 
-  const readClass = message.read ? 'read' : ''
+  const readClass = message.read ? 'read' : 'unread'
 
   const starMessage = (e) => {
     e.stopPropagation()
