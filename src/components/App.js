@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Messages from '../components/Messages';
 import Toolbar from '../components/Toolbar';
+import ComposeForm from '../components/ComposeForm';
 import './App.css';
 
 
@@ -141,6 +142,9 @@ class App extends Component {
         </div>
         <div className="container">
           <Toolbar toggleRead={this.toggleRead} toggleUnread={this.toggleUnread} toggleSelectAll={this.toggleSelectAll} deleteMessage={this.deleteMessage} addLabel={this.addLabel} removeLabel={this.removeLabel} messages={this.state.messages} />
+
+          <ComposeForm />
+
           <Messages messages={this.state.messages} toggleStar={this.toggleStar} toggleSelect={this.toggleSelect} addLabel={this.addLabel} removeLabel={this.removeLabel} />
         </div>
       </div>
