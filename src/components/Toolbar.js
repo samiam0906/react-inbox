@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Toolbar = ({ toggleRead, toggleUnread, toggleSelectAll, deleteMessage, messages }) => {
+const Toolbar = ({ toggleRead, toggleUnread, toggleSelectAll, deleteMessage, addLabel, removeLabel, messages }) => {
 
   const selected = messages.filter(message => message.selected === true).length;
 
@@ -26,14 +26,14 @@ const Toolbar = ({ toggleRead, toggleUnread, toggleSelectAll, deleteMessage, mes
           Mark As Unread
         </button>
 
-        <select className="form-control label-select" disabled="disabled">
+        <select className="form-control label-select" disabled="" onChange={ addLabel }>
           <option>Apply label</option>
           <option value="dev">dev</option>
           <option value="personal">personal</option>
           <option value="gschool">gschool</option>
         </select>
 
-        <select className="form-control label-select" disabled="disabled">
+        <select className="form-control label-select" disabled="" onChange={ removeLabel }>
           <option>Remove label</option>
           <option value="dev">dev</option>
           <option value="personal">personal</option>

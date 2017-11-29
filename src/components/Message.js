@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Message = ({message, toggleStar, toggleSelect }) => {
+const Message = ({ message, toggleStar, toggleSelect, addLabel, removeLabel }) => {
   const starClass = message.starred ? 'fa-star' : 'fa-star-o'
 
   const selectedClass = message.selected ? 'selected' : ''
@@ -29,6 +29,7 @@ const Message = ({message, toggleStar, toggleSelect }) => {
         </div>
       </div>
       <div className="col-xs-11">
+        { message.labels.map((label, i) => <span key={ i } className='label label-warning'>{label}</span>) }
         {message.subject}
       </div>
     </div>

@@ -29,7 +29,6 @@ class App extends Component {
   }
 
   toggleRead = () => {
-
     const messages = this.state.messages.slice()
 
     const selectedMessages = messages.filter( message => message.selected === true)
@@ -41,11 +40,9 @@ class App extends Component {
       messages[index].selected = !messages[index].selected
       this.setState({ messages: messages })
     })
-
   }
 
   toggleUnread = () => {
-
     const messages = this.state.messages.slice()
 
     const selectedMessages = messages.filter( message => message.selected === true)
@@ -57,13 +54,12 @@ class App extends Component {
       messages[index].selected = !messages[index].selected
       this.setState({ messages: messages })
     })
-
   }
 
   toggleSelectAll = () => {
-
     const messages = this.state.messages.slice()
     const numSelected = messages.filter(message => message.selected === true).length;
+
     if (messages.length === numSelected) {
       messages.forEach((message) => {
         message.selected = false
@@ -75,20 +71,55 @@ class App extends Component {
       })
       this.setState({ messages: messages })
     }
-
   }
 
   deleteMessage = () => {
-
     const messages = this.state.messages.slice()
 
     const selectedMessages = messages.filter(message => message.selected === true)
 
     const remainingMessages = messages.filter(message => selectedMessages.indexOf(message) === -1)
-    console.log(remainingMessages);
 
     this.setState({ messages: remainingMessages })
+  }
 
+  addLabel = (e) => {
+    const messages = this.state.messages.slice()
+
+    const selectedMessages = messages.filter(message => message.selected === true)
+
+    const selectedIndex = selectedMessages.map((message) => messages.indexOf(message))
+
+    let label = e.target.value
+
+    selectedIndex.forEach(index => {
+      if (label === 'Apply label') {
+        this.setState({ messages: messages })
+      } else {
+        messages[index].labels.includes(label) ? messages[index].labels : messages[index].labels.push(label)
+        this.setState({ messages: messages })
+      }
+    })
+  }
+
+  removeLabel = (e) => {
+    const messages = this.state.messages.slice()
+
+    const selectedMessages = messages.filter(message => message.selected === true)
+
+    const selectedIndex = selectedMessages.map((message) => messages.indexOf(message))
+
+    let label = e.target.value
+
+    selectedIndex.forEach(index => {
+      if (label === 'Apply label') {
+        this.setState({ messages:messages })
+      } else {
+        let labelIndex = messages[index].labels.indexOf(label)
+        messages[index].labels.includes(label) ? messages[index].labels.splice(labelIndex, 1) : messages[index].labels
+        this.setState({ messages: messages })
+      }
+    })
   }
 
 
@@ -109,8 +140,8 @@ class App extends Component {
           </div>
         </div>
         <div className="container">
-          <Toolbar toggleRead={this.toggleRead} toggleUnread={this.toggleUnread} toggleSelectAll={this.toggleSelectAll} deleteMessage={this.deleteMessage} messages={this.state.messages} />
-          <Messages messages={this.state.messages} toggleStar={this.toggleStar} toggleSelect={this.toggleSelect} />
+          <Toolbar toggleRead={this.toggleRead} toggleUnread={this.toggleUnread} toggleSelectAll={this.toggleSelectAll} deleteMessage={this.deleteMessage} addLabel={this.addLabel} removeLabel={this.removeLabel} messages={this.state.messages} />
+          <Messages messages={this.state.messages} toggleStar={this.toggleStar} toggleSelect={this.toggleSelect} addLabel={this.addLabel} removeLabel={this.removeLabel} />
         </div>
       </div>
     );
