@@ -15,7 +15,6 @@ class App extends Component {
     const messages = this.state.messages.slice()
     const index = this.state.messages.indexOf(message)
     messages[index].starred = !messages[index].starred
-    console.log(this);
 
     this.setState({ messages: messages })
   }
@@ -23,7 +22,6 @@ class App extends Component {
   toggleSelect = (message) => {
     const messages = this.state.messages.slice()
     const index = this.state.messages.indexOf(message)
-    console.log(index);
 
     messages[index].selected = !messages[index].selected
 
@@ -35,17 +33,29 @@ class App extends Component {
     const messages = this.state.messages.slice()
 
     const selectedMessages = messages.filter( message => message.selected === true)
-    console.log(selectedMessages)
 
     const selectedIndex = selectedMessages.map((message) => messages.indexOf(message))
-    console.log(selectedIndex)
 
     selectedIndex.forEach(index => {
       messages[index].read = true
-      console.log(messages[index])
       messages[index].selected = !messages[index].selected
       this.setState({ messages: messages })
-      console.log(messages);
+    })
+
+  }
+
+  toggleUnread = () => {
+
+    const messages = this.state.messages.slice()
+
+    const selectedMessages = messages.filter( message => message.selected === true)
+
+    const selectedIndex = selectedMessages.map((message) => messages.indexOf(message))
+
+    selectedIndex.forEach(index => {
+      messages[index].read = false
+      messages[index].selected = !messages[index].selected
+      this.setState({ messages: messages })
     })
 
   }
@@ -65,12 +75,6 @@ class App extends Component {
       })
       this.setState({ messages: messages })
     }
-    // messages.forEach((message) => {
-    //   message.selected = true
-    // })
-    // console.log(messages)
-    // this.setState({ messages: messages })
-
 
   }
 
@@ -92,7 +96,7 @@ class App extends Component {
           </div>
         </div>
         <div className="container">
-          <Toolbar toggleRead={this.toggleRead} toggleSelectAll={this.toggleSelectAll} messages={this.state.messages} />
+          <Toolbar toggleRead={this.toggleRead} toggleUnread={this.toggleUnread} toggleSelectAll={this.toggleSelectAll} messages={this.state.messages} />
           <Messages messages={this.state.messages} toggleStar={this.toggleStar} toggleSelect={this.toggleSelect} />
         </div>
       </div>

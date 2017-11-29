@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Toolbar = ({ toggleRead, toggleSelectAll, messages }) => {
+const Toolbar = ({ toggleRead, toggleUnread, toggleSelectAll, messages }) => {
 
   const selected = messages.filter(message => message.selected === true).length;
 
@@ -22,7 +22,7 @@ const Toolbar = ({ toggleRead, toggleSelectAll, messages }) => {
           Mark As Read
         </button>
 
-        <button className="btn btn-default" disabled="disabled">
+        <button className="btn btn-default" disabled="" onClick={ toggleUnread }>
           Mark As Unread
         </button>
 
