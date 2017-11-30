@@ -4,7 +4,6 @@ import Toolbar from '../components/Toolbar';
 import ComposeForm from '../components/ComposeForm';
 import './App.css';
 
-
 class App extends Component {
 
   constructor(props) {
@@ -122,7 +121,6 @@ class App extends Component {
       }
     })
   }
-
 
   render() {
     return (
