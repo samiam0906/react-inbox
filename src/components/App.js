@@ -11,6 +11,7 @@ class App extends Component {
     this.state = { messages: props.messages }
   }
 
+  // Message: Starred or Not Starred
   toggleStar = (message) => {
     const messages = this.state.messages.slice()
     const index = this.state.messages.indexOf(message)
@@ -19,6 +20,7 @@ class App extends Component {
     this.setState({ messages: messages })
   }
 
+  // Message: Selected or Not Selected
   toggleSelect = (message) => {
     const messages = this.state.messages.slice()
     const index = this.state.messages.indexOf(message)
@@ -28,6 +30,7 @@ class App extends Component {
     this.setState({ messages: messages })
   }
 
+  // Message: Read
   toggleRead = () => {
     const messages = this.state.messages.slice()
 
@@ -42,6 +45,7 @@ class App extends Component {
     })
   }
 
+  // Message: Unread
   toggleUnread = () => {
     const messages = this.state.messages.slice()
 
@@ -56,6 +60,7 @@ class App extends Component {
     })
   }
 
+  // Select All Messages
   toggleSelectAll = () => {
     const messages = this.state.messages.slice()
     const numSelected = messages.filter(message => message.selected === true).length;
@@ -73,6 +78,7 @@ class App extends Component {
     }
   }
 
+  // Delete a Message
   deleteMessage = () => {
     const messages = this.state.messages.slice()
 
@@ -83,6 +89,7 @@ class App extends Component {
     this.setState({ messages: remainingMessages })
   }
 
+  // Add a Label to Message
   addLabel = (e) => {
     const messages = this.state.messages.slice()
 
@@ -102,6 +109,7 @@ class App extends Component {
     })
   }
 
+  // Remove a Label from Message
   removeLabel = (e) => {
     const messages = this.state.messages.slice()
 
