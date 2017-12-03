@@ -8,7 +8,7 @@ class App extends Component {
 
   constructor(props) {
     super(props)
-    this.state = { messages: props.messages }
+    this.state = { messages: [] }
   }
 
   // Message: Starred or Not Starred
@@ -31,7 +31,7 @@ class App extends Component {
   }
 
   // Message: Read
-  toggleRead = () => {
+  markAsRead = () => {
     const messages = this.state.messages.slice()
 
     const selectedMessages = messages.filter( message => message.selected === true)
@@ -46,7 +46,7 @@ class App extends Component {
   }
 
   // Message: Unread
-  toggleUnread = () => {
+  markAsUnread = () => {
     const messages = this.state.messages.slice()
 
     const selectedMessages = messages.filter( message => message.selected === true)
@@ -130,6 +130,48 @@ class App extends Component {
     })
   }
 
+  async componentDidMount() {
+    const messagesUrl = 'http://localhost:8000/messages'
+    // Get messages data from backend API
+    await fetch(messagesUrl)
+      .then(response => response.json())
+      .then(data => this.setState({ messages: data }))
+  }
+
+  addMessage = (e) => {
+    e.preventDefault()
+    let myHeaders = new Headers({
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    })
+    let subject = document.getElementById('subject').value
+    let body = document.getElementById('body').value
+    let message = {
+      "subject": subject,
+      "read": false,
+      "starred": false,
+      "labels": JSON.stringify([]),
+      "body": body
+    }
+    const addMsgUrl = 'http://localhost:8000/messages'
+    fetch(addMsgUrl, {
+      method: 'POST',
+      headers: myHeaders,
+      body: JSON.stringify(message)
+    })
+    .then(response => {
+      let contentType = response.headers.get("Content-Type")
+      if(contentType && contentType.includes("application/json")) {
+        return response.json()
+      } else {
+        throw new TypeError("Oops, we haven't got JSON!")
+      }
+    })
+    .then(data =>
+      this.setState({messages: data}))
+    .catch(err => console.log(err))
+  }
+
   render() {
     return (
       <div>
@@ -147,9 +189,9 @@ class App extends Component {
           </div>
         </div>
         <div className="container">
-          <Toolbar toggleRead={this.toggleRead} toggleUnread={this.toggleUnread} toggleSelectAll={this.toggleSelectAll} deleteMessage={this.deleteMessage} addLabel={this.addLabel} removeLabel={this.removeLabel} messages={this.state.messages} />
+          <Toolbar markAsRead={this.markAsRead} markAsUnread={this.markAsUnread} toggleSelectAll={this.toggleSelectAll} deleteMessage={this.deleteMessage} addLabel={this.addLabel} removeLabel={this.removeLabel} messages={this.state.messages} />
 
-          <ComposeForm />
+          <ComposeForm messages={this.state.messages} addMessage={this.addMessage} />
 
           <Messages messages={this.state.messages} toggleStar={this.toggleStar} toggleSelect={this.toggleSelect} addLabel={this.addLabel} removeLabel={this.removeLabel} />
         </div>
