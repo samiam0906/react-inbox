@@ -8,7 +8,10 @@ class App extends Component {
 
   constructor(props) {
     super(props)
-    this.state = { messages: [] }
+    this.state = {
+      messages: [],
+      isComposeShown: false
+    }
   }
 
   // Message: Starred or Not Starred
@@ -130,6 +133,12 @@ class App extends Component {
     })
   }
 
+  toggleCompose = () => {
+    this.setState({
+      isComposeShown: !this.state.isComposeShown
+    })
+  }
+
   async componentDidMount() {
     const messagesUrl = 'http://localhost:8000/messages'
     // Get messages data from backend API
@@ -189,9 +198,11 @@ class App extends Component {
           </div>
         </div>
         <div className="container">
-          <Toolbar markAsRead={this.markAsRead} markAsUnread={this.markAsUnread} toggleSelectAll={this.toggleSelectAll} deleteMessage={this.deleteMessage} addLabel={this.addLabel} removeLabel={this.removeLabel} messages={this.state.messages} />
-
-          <ComposeForm messages={this.state.messages} addMessage={this.addMessage} />
+          <Toolbar markAsRead={this.markAsRead} markAsUnread={this.markAsUnread} toggleSelectAll={this.toggleSelectAll} deleteMessage={this.deleteMessage} addLabel={this.addLabel} removeLabel={this.removeLabel} toggleCompose={this.toggleCompose} messages={this.state.messages} />
+          <div>
+          { this.state.isComposeShown ? <ComposeForm messages={this.state.messages} addMessage={this.addMessage} /> : null
+          }
+          </div>
 
           <Messages messages={this.state.messages} toggleStar={this.toggleStar} toggleSelect={this.toggleSelect} addLabel={this.addLabel} removeLabel={this.removeLabel} />
         </div>
